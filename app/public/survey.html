@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+    <title>Document</title>
+    <style>
+        .modal{
+            position: fixed;
+            top: 10%;
+            bottom: 20%;
+            left: 15%;
+            right: 15%;
+            background-color: #e7e7e7;
+            display: none;
+        }
+        .modaltext, #cityName {
+            text-align: center;
+            
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Where should you live</h1>
+    <p>1 = absolutly not, 2 = absolutly yes</p>
+    <p>1 Do you like the mountains</p>
+    <select id="one">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <p>Do you like the beach</p>
+    <select id="two">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <p>2 Do you like the heat</p>
+    <select id="three">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <p>3 Do you like the cold</p>
+    <select id="four">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <p>4 Do you like the city</p>
+    <select id="five">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <p>5 Do you want it cheap</p>
+    <select id="six">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <br>
+    <button id="submit">Submit</button>
+
+
+    <div class="modal"><h2 class="modaltext">Your city match is: </h2><h1 id="cityName">Charlotte</h1></div>
+
+    <script>
+        console.log("working")
+    $("#submit").on("click", function(event){
+        event.preventDefault()
+        console.log("working")
+        var usercity = {
+            mountains: $("#one").val(),
+            beach: $("#two").val(),
+            heat: $("#three").val(),
+            cold: $("#four").val(),
+            city: $("#five").val(),
+            cheap: $("#six").val(),
+            total: $("#one").val() + $("#two").val() + $("#three").val()
+            + $("#four").val() + $("#five").val() + $("#six").val()
+        }
+        console.log(usercity)
+        $.post("/api/cities", usercity, function(res){
+            console.log(res)
+            $("#cityName").text(res.name)
+            $(".modal").css("display", "block")
+        })
+        
+    })
+        
+    </script>
+</body>
+</html>
